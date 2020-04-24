@@ -100,7 +100,7 @@ public class RetrieveTickets {
 		
 		System.out.println("Writing in a csv file..");
 		insertInCsv(ticketDate);
-		System.out.println("Success.");
+		System.out.println("Success. You can read the csv file.");
 
 		return;   
 	}
