@@ -15,7 +15,8 @@ public class ReadLog {
 	}
 
 	public JSONObject fetchDates(JSONArray issues) {
-		int total = issues.length(), totalCommit = 0;
+		int total = issues.length();
+		int totalCommit = 0;
 		String date;
 
 		JSONObject mainJO = new JSONObject();
@@ -57,7 +58,6 @@ public class ReadLog {
 			BufferedReader input = new BufferedReader(new InputStreamReader(pr.getInputStream()));
 
 			String line = null;
-			//while ((line = input.readLine()) != null) {
 			if((line = input.readLine()) != null) {
 				date = line; //debug
 			} else {
@@ -67,7 +67,6 @@ public class ReadLog {
 		}
 		catch (Exception e)
 		{
-			System.out.println(e.toString());
 			e.printStackTrace();
 		}
 		return date;
