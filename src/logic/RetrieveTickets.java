@@ -21,9 +21,9 @@ import utils.Logging;
 
 public class RetrieveTickets {
 	private static final Logger LOGGER = Logger.getLogger(RetrieveTickets.class.getName());
-	private static final String pathCsv = System.getProperty("user.home") + "\\Google Drive\\milestone\\keyData.csv";
-	private static final String path = System.getProperty("user.home") + "\\Google Drive\\milestone\\samza";
-	private static final String projName ="Samza";
+	private static final String PATHCSV = System.getProperty("user.home") + "\\Google Drive\\milestone\\keyData.csv";
+	private static final String PATH = System.getProperty("user.home") + "\\Google Drive\\milestone\\samza";
+	private static final String PROJNAME ="Samza";
 	
 	private static String readAll(Reader rd) throws IOException {
 		StringBuilder sb = new StringBuilder();
@@ -57,7 +57,7 @@ public class RetrieveTickets {
 	}
 	
 	public static void insertInCsv(JSONObject keyDate) throws IOException {
-		File file = new File(pathCsv);
+		File file = new File(PATHCSV);
 		JSONArray issues;
 		issues = keyDate.getJSONArray("issues");
 		
@@ -88,13 +88,13 @@ public class RetrieveTickets {
 	public static void main(String[] args) throws IOException, JSONException {
 		JSONArray issues;
 		JSONObject ticketDate;
-		ReadLog rl = new ReadLog(path);
+		ReadLog rl = new ReadLog(PATH);
 		Logging lgg = new Logging(LOGGER);
 		
 		lgg.configOutputLogger();
 		
 		lgg.showOutput("Obtaining ticket of type fixed bugs from JIRA..");
-		issues = fixedBugFromJira(projName);
+		issues = fixedBugFromJira(PROJNAME);
 		lgg.showOutput("Success.");
 		
 		
