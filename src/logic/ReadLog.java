@@ -9,7 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class ReadLog {
-	private static final Logger LOGGER = Logger.getLogger(RetrieveTickets.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(ReadLog.class.getName());
 	private String path;
 
 	public ReadLog(String path) {
