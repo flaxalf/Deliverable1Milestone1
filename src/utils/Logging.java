@@ -6,21 +6,21 @@ import java.util.logging.SimpleFormatter;
 import java.util.logging.StreamHandler;
 
 public class Logging {
-	private Logger LOGGER;
+	private Logger log;
 	
 	public Logging(Logger logger) {
 		super();
-		LOGGER = logger;
+		log = logger;
 	}
 
 	public void configOutputLogger() {
-		LOGGER.setUseParentHandlers(false);
-		LOGGER.setLevel(Level.FINER);
-        LOGGER.addHandler(new StreamHandler(System.out, new SimpleFormatter()));
+		log.setUseParentHandlers(false);
+		log.setLevel(Level.FINER);
+        log.addHandler(new StreamHandler(System.out, new SimpleFormatter()));
 	}
 	
 	public void showOutput(String msg) {
-		LOGGER.info(msg);
-		LOGGER.getHandlers()[0].flush();
+		log.info(msg);
+		log.getHandlers()[0].flush();
 	}
 }

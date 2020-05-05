@@ -47,8 +47,7 @@ public class RetrieveTickets {
 		try (BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8)))
 		{
 			String jsonText = readAll(rd);
-			JSONObject json = new JSONObject(jsonText);
-			return json;
+			return new JSONObject(jsonText);
 		} finally {
 			is.close();
 		}
@@ -68,12 +67,12 @@ public class RetrieveTickets {
 		int total;
 		JSONObject json;
 		String url = "";
-		String url_total = "https://issues.apache.org/jira/rest/api/2/search?jql=project=%22"
+		String urlTotal = "https://issues.apache.org/jira/rest/api/2/search?jql=project=%22"
 					+ projName + "%22AND%22issueType%22=%22Bug%22AND(%22status%22=%22closed%22OR"
 					+ "%22status%22=%22resolved%22)AND%22resolution%22=%22fixed%22&fields=key,resolutiondate,versions,created"
 					+ "&startAt=0&maxResults=0";
 		
-		json = readJsonFromUrl(url_total);
+		json = readJsonFromUrl(urlTotal);
 		total = json.getInt("total");
 		url = "https://issues.apache.org/jira/rest/api/2/search?jql=project=%22"
 					+ projName + "%22AND%22issueType%22=%22Bug%22AND(%22status%22=%22closed%22OR"
@@ -81,8 +80,7 @@ public class RetrieveTickets {
 					+ "&startAt=0&maxResults=" + total+1;
 	
 		json = readJsonFromUrl(url);
-		JSONArray issues = json.getJSONArray("issues");
-		return issues;
+		return json.getJSONArray("issues");
 	}
 
 	public static void main(String[] args) throws IOException, JSONException {
