@@ -90,7 +90,7 @@ public class RetrieveTickets {
 		JSONObject ticketDate;
 		ReadLog rl = new ReadLog(path);
 		Logging lgg = new Logging(LOGGER);
-			
+		
 		lgg.configOutputLogger();
 		
 		lgg.showOutput("Obtaining ticket of type fixed bugs from JIRA..");
@@ -106,6 +106,5 @@ public class RetrieveTickets {
 		lgg.showOutput("Writing in a csv file..");
 		insertInCsv(ticketDate);
 		lgg.showOutput("Success. You can read the csv file.");
-
 	}
 }

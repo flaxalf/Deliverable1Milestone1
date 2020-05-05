@@ -1,9 +1,8 @@
 package utils;
 
+import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
-import java.util.logging.StreamHandler;
 
 public class Logging {
 	private Logger log;
@@ -16,7 +15,9 @@ public class Logging {
 	public void configOutputLogger() {
 		log.setUseParentHandlers(false);
 		log.setLevel(Level.FINER);
-        log.addHandler(new StreamHandler(System.out, new SimpleFormatter()));
+		ConsoleHandler handler = new ConsoleHandler();
+		handler.setLevel(Level.FINER);
+        log.addHandler(handler);
 	}
 	
 	public void showOutput(String msg) {

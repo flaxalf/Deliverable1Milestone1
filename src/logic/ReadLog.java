@@ -3,11 +3,13 @@ package logic;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
+import java.util.logging.Logger;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class ReadLog {
+	private static final Logger LOGGER = Logger.getLogger(RetrieveTickets.class.getName());
 	private String path;
 
 	public ReadLog(String path) {
@@ -67,7 +69,7 @@ public class ReadLog {
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			LOGGER.severe(e.getMessage());
 		}
 		return date;
 	}
