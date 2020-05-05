@@ -8,6 +8,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.logging.Logger;
+
 import org.apache.commons.io.FileUtils;
 
 import org.json.JSONException;
@@ -15,7 +17,11 @@ import org.json.JSONObject;
 import org.json.CDL;
 import org.json.JSONArray;
 
+import utils.Logging;
+
 public class RetrieveTickets {
+	private static final Logger LOGGER = Logger.getLogger(RetrieveTickets.class.getName());
+	
 	private static String readAll(Reader rd) throws IOException {
 		StringBuilder sb = new StringBuilder();
 		int cp;
@@ -50,7 +56,7 @@ public class RetrieveTickets {
 	}
 	
 	public static void insertInCsv(JSONObject keyDate) throws IOException {
-		String pathCsv = "C:/Users/Flavio/Desktop/milestone/keyDate.csv";
+		String pathCsv = System.getProperty("user.home") + "\\Google Drive\\milestone\\keyData.csv";
 		File file = new File(pathCsv);
 		JSONArray issues;
 		issues = keyDate.getJSONArray("issues");
@@ -71,7 +77,6 @@ public class RetrieveTickets {
 		
 		json = readJsonFromUrl(url_total);
 		total = json.getInt("total");
-		//System.out.println("Numero ticket " + total); //debug
 		url = "https://issues.apache.org/jira/rest/api/2/search?jql=project=%22"
 					+ projName + "%22AND%22issueType%22=%22Bug%22AND(%22status%22=%22closed%22OR"
 					+ "%22status%22=%22resolved%22)AND%22resolution%22=%22fixed%22&fields=key,resolutiondate,versions,created"
@@ -84,24 +89,27 @@ public class RetrieveTickets {
 
 	public static void main(String[] args) throws IOException, JSONException {
 		String projName ="Samza";
-		String path = "C:/Users/Flavio/Desktop/milestone/samza";
+		String path = System.getProperty("user.home") + "\\Google Drive\\milestone\\samza";
 		JSONArray issues;
 		JSONObject ticketDate;
 		ReadLog rl = new ReadLog(path);
+		Logging lgg = new Logging(LOGGER);
+			
+		lgg.configOutputLogger();
 		
-		System.out.println("Obtaining ticked of type fixed bugs from JIRA..");
+		lgg.showOutput("Obtaining ticket of type fixed bugs from JIRA..");
 		issues = fixedBugFromJira(projName, path);
-		System.out.println("Success.");
+		lgg.showOutput("Success.");
 		
-		System.out.println("Reading dates from git log..");
+		
+		lgg.showOutput("Reading dates from git log..");
 		ticketDate = rl.fetchDates(issues);
-		System.out.println("Success.");
+		lgg.showOutput("Success.");
 		
 		
-		System.out.println("Writing in a csv file..");
+		lgg.showOutput("Writing in a csv file..");
 		insertInCsv(ticketDate);
-		System.out.println("Success. You can read the csv file.");
+		lgg.showOutput("Success. You can read the csv file.");
 
-		return;   
 	}
 }
